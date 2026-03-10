@@ -1,5 +1,5 @@
-import {config} from "dotenv"
-config();
+import {config} from "dotenv";
+config()
 
 import { ChatGroq } from "@langchain/groq";
 import { PromptTemplate } from "@langchain/core/prompts";
