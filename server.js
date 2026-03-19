@@ -1,11 +1,8 @@
-function sayHello(name) {
-  return "Hello " + name;
-}
+import express from "express"
 
-function greetUser(functions) {
-  console.log(functions("Ayush"));
-}
+const app = express();
 
-greetUser(sayHello);
-
-
+app.listen(3000,()=>{
+    console.log(running);
+    
+})
