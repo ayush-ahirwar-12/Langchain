@@ -38,4 +38,8 @@ export async function sendEmail({ to, subject, html, text="" }) {
     return "email   sent successfully to:", to
 }
 
+export async function currentDate() {
+    const today = new Date();
+    return today.toString();
+}
 

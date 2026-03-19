@@ -5,8 +5,9 @@ import { ChatMistralAI } from "@langchain/mistralai";
 import { HumanMessage, AIMessage } from "@langchain/core/messages";
 import readline from "readline/promises";
 import { createAgent, tool } from "langchain";
-import { sendEmail } from "./mail.service.js";
+import { currentDate, sendEmail } from "./mail.service.js";
 import * as z from "zod"
+import { datetimeRegex } from "zod/v3";
 
 const emailTool = tool(sendEmail, {
   name: "emailTool",
@@ -16,6 +17,11 @@ const emailTool = tool(sendEmail, {
     subject: z.string().describe("The subject of the email"),
     html: z.string().optional().describe("The HTML content of the email"),
   })
+})
+const dateTool= tool(currentDate,{
+  name:"currentDate",
+  description:"Use this function to get current date",
+  schema:z.object({})
 })
 
 const rl = readline.createInterface({
@@ -30,7 +36,7 @@ const model = new ChatMistralAI({
 
 
 
-const agent = createAgent({ model, tools: [emailTool] });
+const agent = createAgent({ model, tools: [emailTool,dateTool] });
 
 const messages = [];
 
