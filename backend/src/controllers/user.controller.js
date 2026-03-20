@@ -16,7 +16,12 @@ class UserController {
         try {
             const { email, password } = req.body;
             const { user, token } = await userService.login(email, password);
-            res.status(200).json({ user, token });
+            res.cookie('token', token, { 
+                httpOnly: true, 
+                secure: process.env.NODE_ENV === 'production', 
+                maxAge: 3600000 // 1 hour
+            });
+            res.status(200).json({ user });
         } catch (error) {
             res.status(401).json({ error: error.message });
         }
@@ -35,6 +40,7 @@ class UserController {
 
     async logout(req, res) {
         try {
+            res.clearCookie('token');
             const result = await userService.logout();
             res.status(200).json(result);
         } catch (error) {

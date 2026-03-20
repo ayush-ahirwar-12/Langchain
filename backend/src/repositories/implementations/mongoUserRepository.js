@@ -1,5 +1,5 @@
-import IUserRepository from "../contracts/IUserRepository";
-import UserModel from "../../models/user.model";
+import IUserRepository from "../contracts/IUserRepository.js";
+import UserModel from "../../models/user.model.js";
 
 class mongoUserRepository extends IUserRepository {
   async createUser(data) {
